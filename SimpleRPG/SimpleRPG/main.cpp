@@ -10,6 +10,6 @@ int main()
 	Map level1("Level.txt");
 	level1.setHero(some);
 	level1.move();
-
+	
 	return 0;
 }

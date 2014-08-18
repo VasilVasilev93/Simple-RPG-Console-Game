@@ -77,7 +77,6 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 		this->hero.setHealth(100);
 		system("cls");
 		cout << "gratZ!" << endl;
-		// move to next level
 	}
 	else if(map[heroX][heroY] == '*')
 	{
@@ -99,7 +98,7 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 
 void Map::move()
 {
-	bool game_running = true;
+	game_running = true;
 	while(game_running = true)
 	{
 		if (GetAsyncKeyState(VK_UP))

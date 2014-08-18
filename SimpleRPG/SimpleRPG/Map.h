@@ -12,6 +12,7 @@ using std::vector;
 class Map
 {
 private:
+	bool game_running;
 	int mapHeight;
 	int mapWidht;
 	Hero hero;
