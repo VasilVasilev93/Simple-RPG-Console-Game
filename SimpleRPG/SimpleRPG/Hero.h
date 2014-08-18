@@ -26,11 +26,11 @@ private:
 public:
 	// Constructor
 	Hero();
-	Hero(string&, CharType&);
+	Hero(string, CharType);
 	~Hero();
 
 	// Getters
-	void getPos(int*, int*);
+	void getPos(int&, int&);
 	string getName() const;
 	CharType getClass() const;
 	vector<ItemType> getStash();

@@ -8,11 +8,13 @@ Hero::Hero()
 
 }
 
-Hero::Hero(string& newName, CharType& newType)
+Hero::Hero(string newName, CharType newType)
 {
 	heroName = newName;
 	heroClass = newType;
 	level = 1;
+	posX = 2;
+	posY = 1;
 	switch(heroClass)
 	{
 	case Warrior:
@@ -40,10 +42,10 @@ Hero::~Hero()
 
 #pragma region Getters
 
-void Hero::getPos(int *getX, int *getY)
+void Hero::getPos(int &getX, int &getY)
 {
-	getX = &posX;
-	getY = &posY;
+	getX = posX;
+	getY = posY;
 }
 
 string Hero::getName() const

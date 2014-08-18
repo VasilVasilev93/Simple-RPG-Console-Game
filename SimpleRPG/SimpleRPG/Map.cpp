@@ -3,7 +3,7 @@
 using std::cout;
 using std::endl;
 
-Map::Map(string& filePath) // not needed ???
+Map::Map(string filePath) // not needed ???
 {
 	loadMap(filePath);
 }
@@ -13,7 +13,7 @@ Map::~Map()
 
 }
 
-void Map::loadMap(string& textfile)
+void Map::loadMap(string textfile)
 {
 	inFile.open(textfile);
 	inFile >> mapHeight >> mapWidht;
@@ -23,6 +23,7 @@ void Map::loadMap(string& textfile)
 	{
 		map.push_back(inputLine);
 	}
+	printMap();
 }
 
 void Map::printMap()
@@ -31,7 +32,6 @@ void Map::printMap()
 	{
 		cout << map[row] << endl;
 	}
-	Map::stopGame();
 }
 
 void Map::setHero(const Hero &hero)
@@ -39,51 +39,54 @@ void Map::setHero(const Hero &hero)
 	this->hero = hero;
 }
 
-void Map::stopGame()
-{
-	if (GetAsyncKeyState(VK_ESCAPE))
-	{
-		cout << "Game Over";
-		hero.~Hero();
-		system ("pause");
-	}
-}
-
 bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 || 0 || 1
 {
 	int heroX, heroY;
-	this->hero.getPos(&heroX, &heroY);
-	heroX += movX;
+	this->hero.getPos(heroX, heroY);
+	heroX += movX; 
 	heroY += movY;
-
+	
 	if(map[heroX][heroY] == ' ')
 	{
 		map[heroX - movX][heroY - movY] = ' ';
 		map[heroX][heroY] = '@';
+		system ("cls");
+		printMap();
+		system("pause");
 	}
 	else if(map[heroX][heroY] == '$')
 	{
 		map[heroX - movX][heroY - movY] = ' ';
 		this->hero.setHealth(rand() % 60 + 99); // create method to calculate damage
 		map[heroX][heroY] = '@';
+		system ("cls");
+		printMap();
+		system("pause");
 	}
 	else if(map[heroX][heroY] == '&')
 	{
 		map[heroX - movX][heroY - movY] = ' ';
 		this->hero.setHealth(rand() % (50-30 +1) + 30); // create method to calculate damage
 		map[heroX][heroY] = '@';
+		system ("cls");
+		printMap();
+		system("pause");
 	}
 	else if(map[heroX][heroY] == '%')
 	{
 		this->hero.setHealth(100);
 		system("cls");
 		cout << "gratZ!" << endl;
+		// move to next level
 	}
 	else if(map[heroX][heroY] == '*')
 	{
 		this->hero.addHealth(5);
 		map[heroX - movX][heroY - movY] = ' ';
 		map[heroX][heroY] = '@';
+		system ("cls");
+		printMap();
+		system("pause");
 	}
 	else
 	{
@@ -96,23 +99,38 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 
 void Map::move()
 {
-	if (GetAsyncKeyState(VK_UP))
+	bool game_running = true;
+	while(game_running = true)
 	{
-		changeHeroPos(0, 1);
-	}
-	else if(GetAsyncKeyState(VK_DOWN))
-	{
-		changeHeroPos(0, -1);
-	}
-	else if (GetAsyncKeyState(VK_RIGHT))
-	{
-		changeHeroPos(1, 0);
-	}
+		if (GetAsyncKeyState(VK_UP))
+		{
+			changeHeroPos(-1, 0);
+			
+		}
+		else if(GetAsyncKeyState(VK_DOWN))
+		{
+			changeHeroPos(1, 0);
+			
+		}
+		else if (GetAsyncKeyState(VK_RIGHT))
+		{
+			changeHeroPos(0, 1);
+		}
 
-	else if (GetAsyncKeyState(VK_LEFT))
-	{
-		changeHeroPos(-1, 0);
-	}
+		else if (GetAsyncKeyState(VK_LEFT))
+		{
+			changeHeroPos(0, -1);
+			
+		}
 
-	// TODO: Add logic for a pressed ESC button
+		else if (GetAsyncKeyState(VK_ESCAPE))
+		{
+			cout << "Game Over" << endl;
+			game_running = false;
+			hero.~Hero();
+			break;
+		}
+	}
+		
+
 }

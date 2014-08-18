@@ -2,7 +2,7 @@
 #define MAP_H_
 #include "windows.h"
 #include <string>
-#include <vector>
+//#include <vector>
 #include <fstream>
 
 #include "Hero.h"
@@ -19,15 +19,14 @@ private:
 	std::ifstream inFile;
 	vector<string> map;
 
-	void loadMap(string&);
+	void loadMap(string);
 
 public:
-	Map(string&);
+	Map(string);
 	~Map();
 
 	void printMap(); // may be deprecated
 
-	void stopGame();
 	void setHero(const Hero&);
 	bool changeHeroPos(int, int);
 
