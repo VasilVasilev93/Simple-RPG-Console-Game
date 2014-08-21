@@ -19,18 +19,18 @@ Hero::Hero(string newName, CharType newType)
 	{
 	case Warrior:
 		health = 32;
-		attack = 20;
+		attack = 26;
 		armor = 5;
 		break;
 	case Archer:
 		health = 28;
-		attack = 18;
+		attack = 28;
 		armor = 3;
 		break;
 	case Mage:
 		health = 24;
 		attack = 34;
-		armor = 1;
+		armor = 2;
 		break;
 	}
 }
@@ -112,6 +112,12 @@ void Hero::setPos(int posX, int posY)
 	this->posY = posY;
 }
 
+void Hero::resetPos()
+{
+	this->posX = 2;
+	this->posY = 1;
+}
+
 void Hero::setHealth(int hp)
 {
 	this->health = hp;
@@ -148,6 +154,13 @@ void Hero::addHealth(int points)
 void Hero::removeHealth(int points)
 {
 	this->health -= points;
+}
+//todo: enemy class?
+void Hero::calculateDamage()
+{
+	// damageReduction = (enemyAttack*(armor*10))/100)
+	//need enemy class? 
+	//removeHealth(enemyAttack - damageReduction)
 }
 
 #pragma endregion Public Methods for the Hero Class

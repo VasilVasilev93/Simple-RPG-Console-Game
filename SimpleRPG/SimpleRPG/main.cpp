@@ -8,6 +8,7 @@ int main()
 {
 	Hero some("papa", Warrior);
 	Map level1("Level.txt");
+	
 	level1.setHero(some);
 	level1.move();
 	

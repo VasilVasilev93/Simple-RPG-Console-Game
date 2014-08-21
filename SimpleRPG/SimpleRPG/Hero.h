@@ -23,6 +23,8 @@ private:
 	int armor;
 	int health;
 
+	double damageReduction;
+
 public:
 	// Constructor
 	Hero();
@@ -31,6 +33,7 @@ public:
 
 	// Getters
 	void getPos(int&, int&);
+	void resetPos();
 	string getName() const;
 	CharType getClass() const;
 	vector<ItemType> getStash();
@@ -56,6 +59,8 @@ public:
 
 	void addHealth(int);
 	void removeHealth(int);
+
+	void calculateDamage();
 };
 
 #endif

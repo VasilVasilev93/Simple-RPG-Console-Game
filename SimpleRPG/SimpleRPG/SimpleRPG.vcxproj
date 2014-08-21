@@ -82,6 +82,7 @@
     <ClInclude Include="CharType.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="ItemType.h" />
+    <ClInclude Include="levels.h" />
     <ClInclude Include="Map.h" />
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 #define MAP_H_
 #include "windows.h"
 #include <string>
+#include "levels.h"
 //#include <vector>
 #include <fstream>
 
@@ -17,6 +18,8 @@ private:
 	int mapWidht;
 	Hero hero;
 
+	Level level;
+
 	std::ifstream inFile;
 	vector<string> map;
 
@@ -26,12 +29,16 @@ public:
 	Map(string);
 	~Map();
 
-	void printMap(); // may be deprecated
+	void nextLevel();
 
 	void setHero(const Hero&);
 	bool changeHeroPos(int, int);
 
 	void move();
+
+	void printMap();
+
+	string getLevelAsString(Level) const;
 };
 
 #endif

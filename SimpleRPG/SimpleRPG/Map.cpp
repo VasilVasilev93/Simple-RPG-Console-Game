@@ -3,14 +3,33 @@
 using std::cout;
 using std::endl;
 
-Map::Map(string filePath) // not needed ???
+Map::Map(string filePath)
 {
 	loadMap(filePath);
 }
 
-Map::~Map() 
+Map::~Map()
 {
 
+}
+
+string Map::getLevelAsString(Level newLevel) const
+{
+	string levelAsString;
+	switch(newLevel)
+	{
+	case Level2:
+		levelAsString.assign("Level2.txt");
+		break;
+	case Level3:
+		levelAsString.assign("Level3.txt");
+		break;
+	case Level4:
+		levelAsString.assign("Level4.txt");
+		break;
+	}
+
+	return levelAsString;
 }
 
 void Map::loadMap(string textfile)
@@ -27,11 +46,27 @@ void Map::loadMap(string textfile)
 }
 
 void Map::printMap()
-{	
+{
 	for(unsigned row = 0; row < map.size(); row++)
 	{
 		cout << map[row] << endl;
 	}
+}
+
+void Map::nextLevel()
+{
+	Level l;
+	int count = 0;
+	if(count <= 2)
+	{
+		l = (Level)count;
+		//loadMap(getLevelAsString(l));
+		Map::Map(getLevelAsString(l));
+		
+		
+		count++;
+	}
+	
 }
 
 void Map::setHero(const Hero &hero)
@@ -57,7 +92,8 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 	else if(map[heroX][heroY] == '$')
 	{
 		map[heroX - movX][heroY - movY] = ' ';
-		this->hero.setHealth(rand() % 60 + 99); // create method to calculate damage
+		this->hero.calculateDamage();
+		//this->hero.setHealth(rand() % 60 + 99); // create method to calculate damage
 		map[heroX][heroY] = '@';
 		system ("cls");
 		printMap();
@@ -66,7 +102,8 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 	else if(map[heroX][heroY] == '&')
 	{
 		map[heroX - movX][heroY - movY] = ' ';
-		this->hero.setHealth(rand() % (50-30 +1) + 30); // create method to calculate damage
+		this->hero.calculateDamage();
+		//this->hero.setHealth(rand() % (50-30 +1) + 30); // create method to calculate damage
 		map[heroX][heroY] = '@';
 		system ("cls");
 		printMap();
@@ -77,6 +114,10 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 		this->hero.setHealth(100);
 		system("cls");
 		cout << "gratZ!" << endl;
+		this->hero.resetPos();
+		nextLevel();
+		
+
 	}
 	else if(map[heroX][heroY] == '*')
 	{
