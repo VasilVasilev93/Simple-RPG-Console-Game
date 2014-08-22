@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Map.h"
+
 using std::cout;
 using std::endl;
 
@@ -36,20 +37,26 @@ void Map::loadMap(string textfile)
 {
 	inFile.open(textfile);
 	inFile >> mapHeight >> mapWidht;
+	
+	map.clear();
+	vector<string>(map).swap(map);
 
 	string inputLine;
 	while(getline(inFile, inputLine))
 	{
 		map.push_back(inputLine);
 	}
+	
 	printMap();
+	game_running = true;
 }
 
 void Map::printMap()
 {
-	for(unsigned row = 0; row < map.size(); row++)
+
+	for(vector<string>::iterator row = map.begin(); row != map.end(); ++row)
 	{
-		cout << map[row] << endl;
+		cout << *row << endl;
 	}
 }
 
@@ -61,10 +68,12 @@ void Map::nextLevel()
 	{
 		l = (Level)count;
 		//loadMap(getLevelAsString(l));
+		
+		
 		Map::Map(getLevelAsString(l));
-		
-		
 		count++;
+		this->setHero(hero);
+		this->move();
 	}
 	
 }
@@ -80,20 +89,22 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 	this->hero.getPos(heroX, heroY);
 	heroX += movX; 
 	heroY += movY;
-	
+
 	if(map[heroX][heroY] == ' ')
 	{
 		map[heroX - movX][heroY - movY] = ' ';
 		map[heroX][heroY] = '@';
+		
 		system ("cls");
 		printMap();
 		system("pause");
+
 	}
 	else if(map[heroX][heroY] == '$')
 	{
 		map[heroX - movX][heroY - movY] = ' ';
 		this->hero.calculateDamage();
-		//this->hero.setHealth(rand() % 60 + 99); // create method to calculate damage
+		this->hero.setHealth(rand() % 60 + 99); // create method to calculate damage
 		map[heroX][heroY] = '@';
 		system ("cls");
 		printMap();
@@ -103,7 +114,7 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 	{
 		map[heroX - movX][heroY - movY] = ' ';
 		this->hero.calculateDamage();
-		//this->hero.setHealth(rand() % (50-30 +1) + 30); // create method to calculate damage
+		this->hero.setHealth(rand() % (50-30 +1) + 30); // create method to calculate damage
 		map[heroX][heroY] = '@';
 		system ("cls");
 		printMap();
@@ -114,10 +125,9 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 		this->hero.setHealth(100);
 		system("cls");
 		cout << "gratZ!" << endl;
-		this->hero.resetPos();
+		game_running = false;
 		nextLevel();
-		
-
+		this->hero.resetPos();
 	}
 	else if(map[heroX][heroY] == '*')
 	{
@@ -139,9 +149,10 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 
 void Map::move()
 {
-	game_running = true;
+	//game_running = true;
 	while(game_running = true)
 	{
+		//if( )break;
 		if (GetAsyncKeyState(VK_UP))
 		{
 			changeHeroPos(-1, 0);
