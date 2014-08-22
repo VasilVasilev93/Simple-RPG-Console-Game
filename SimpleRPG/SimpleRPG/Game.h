@@ -3,6 +3,7 @@
 
 #include "Hero.h"
 #include "Map.h"
+#include "levels.h"
 
 //start game method, clear map method, load map method, map
 class Game
@@ -11,18 +12,21 @@ public:
 	Game();
 	~Game();
 
+	void startGame();
 
-	void loadLevel(string);
+	void loadLevel();
 	void clearLevel();
-	void nextLevel();
+
+	string getLvlAsString(Level) const;
 	
 
 private:
 	bool game_running;
 
-	Map level;
-	
-	vector<string> map;
+	Map map;
+	Level level;
+
+	//vector<string> map;
 
 
 };

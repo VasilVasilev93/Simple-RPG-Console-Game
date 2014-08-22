@@ -2,6 +2,7 @@
 #define MAP_H_
 #include "windows.h"
 #include <string>
+#include "Game.h"
 #include "levels.h"
 //#include <vector>
 #include <fstream>
@@ -23,13 +24,15 @@ private:
 	std::ifstream inFile;
 	vector<string> map;
 
-	void loadMap(string);
+	
 
 public:
-	Map(string);
+	//Map(string);
 	~Map();
 
-	void nextLevel();
+	void clearMap();
+	//void nextLevel();
+	void loadMap(string);
 
 	void setHero(const Hero&);
 	bool changeHeroPos(int, int);
@@ -38,7 +41,7 @@ public:
 
 	void printMap();
 
-	string getLevelAsString(Level) const;
+	//string getLevelAsString(Level) const;
 };
 
 #endif

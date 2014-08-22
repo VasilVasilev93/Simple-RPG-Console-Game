@@ -4,17 +4,17 @@
 using std::cout;
 using std::endl;
 
-Map::Map(string filePath)
+/*Map::Map(string filePath)
 {
 	loadMap(filePath);
-}
+}*/
 
 Map::~Map()
 {
 
 }
 
-string Map::getLevelAsString(Level newLevel) const
+/*string Map::getLevelAsString(Level newLevel) const
 {
 	string levelAsString;
 	switch(newLevel)
@@ -31,6 +31,12 @@ string Map::getLevelAsString(Level newLevel) const
 	}
 
 	return levelAsString;
+}*/
+
+void Map::clearMap()
+{
+	//Map::~Map();
+	map.clear();
 }
 
 void Map::loadMap(string textfile)
@@ -38,8 +44,8 @@ void Map::loadMap(string textfile)
 	inFile.open(textfile);
 	inFile >> mapHeight >> mapWidht;
 	
-	map.clear();
-	vector<string>(map).swap(map);
+	clearMap();
+	//vector<string>(map).swap(map);
 
 	string inputLine;
 	while(getline(inFile, inputLine))
@@ -60,7 +66,7 @@ void Map::printMap()
 	}
 }
 
-void Map::nextLevel()
+/*void Map::nextLevel()
 {
 	Level l;
 	int count = 0;
@@ -76,7 +82,7 @@ void Map::nextLevel()
 		this->move();
 	}
 	
-}
+}*/
 
 void Map::setHero(const Hero &hero)
 {
@@ -126,8 +132,9 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 		system("cls");
 		cout << "gratZ!" << endl;
 		game_running = false;
-		nextLevel();
 		this->hero.resetPos();
+		//game.loadlevel()..?
+		//nextLevel();
 	}
 	else if(map[heroX][heroY] == '*')
 	{
