@@ -2,19 +2,18 @@
 #define MAP_H_
 #include "windows.h"
 #include <string>
-#include "Game.h"
 #include "levels.h"
-//#include <vector>
 #include <fstream>
 
 #include "Hero.h"
+
 using std::string;
 using std::vector;
 
 class Map
 {
 private:
-	bool game_running;
+	bool level_ended;
 	int mapHeight;
 	int mapWidht;
 	Hero hero;
@@ -24,24 +23,23 @@ private:
 	std::ifstream inFile;
 	vector<string> map;
 
-	
+	void generateItem();
 
 public:
-	//Map(string);
+	bool game_running;
+
 	~Map();
 
 	void clearMap();
-	//void nextLevel();
 	void loadMap(string);
 
 	void setHero(const Hero&);
+	void createHero(string, CharType);
 	bool changeHeroPos(int, int);
 
 	void move();
 
 	void printMap();
-
-	//string getLevelAsString(Level) const;
 };
 
 #endif

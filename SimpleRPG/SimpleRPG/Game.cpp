@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Game.h"
 
 Game::Game()
@@ -5,16 +6,23 @@ Game::Game()
 	
 }
 
-
 Game::~Game()
 {
 
 }
 
-
 void Game::startGame()
 {
 	game_running = true;
+	currentLevel = 0;
+	map.createHero("B.Borisov", Warrior);
+	
+	while(game_running && map.game_running)
+	{
+		loadLevel();
+		if(game_running)
+			map.move();
+	}
 }
 
 string Game::getLvlAsString(Level newLevel) const
@@ -22,6 +30,9 @@ string Game::getLvlAsString(Level newLevel) const
 	string levelAsString;
 	switch(newLevel)
 	{
+	case Level1:
+		levelAsString.assign("Level1.txt");
+		break;
 	case Level2:
 		levelAsString.assign("Level2.txt");
 		break;
@@ -44,14 +55,16 @@ void Game::clearLevel()
 void Game::loadLevel()
 {
 	Level l;
-	int count = 0;
-	if(count <= 2)
+	if(currentLevel <= 3)
 	{
-		l = (Level)count;
+		l = (Level)currentLevel;
 
 		map.loadMap(getLvlAsString(l));
-		count++;
-		//this->setHero(hero);
-		//this->move();
+		currentLevel++;
+	}
+	else
+	{
+		game_running = false;
+		std::cout << "You finished the game!";
 	}
 }

@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "CharType.h"
-#include "ItemType.h"
+//#include "Item.h"
 using std::string;
 using std::vector;
 
@@ -16,7 +16,7 @@ private:
 
 	string heroName;
 	CharType heroClass;
-	vector<ItemType> stash;
+	//vector<Item> stash;
 
 	int level;
 	double attack; 
@@ -36,7 +36,7 @@ public:
 	void resetPos();
 	string getName() const;
 	CharType getClass() const;
-	vector<ItemType> getStash();
+	//vector<Item> getStash();
 
 	int getHealth() const;
 	double getAttack() const;
@@ -54,7 +54,7 @@ public:
 	void setHealth(int);
 
 	// Public Method
-	void pickUpItem(ItemType&);
+	//void pickUpItem(Item&);
 	void printInfo() const;
 
 	void addHealth(int);

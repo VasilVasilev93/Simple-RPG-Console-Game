@@ -1,17 +1,15 @@
 #include <iostream>
 #include "Map.h"
 #include "Hero.h"
+#include "Game.h"
 
 using namespace std;
 
 int main()
 {
 
-	Hero some("papa", Warrior);
-	Map level1("Level.txt");
-	
-	level1.setHero(some);
-	level1.move();
+	Game game;
+	game.startGame();
 	
 	return 0;
 }

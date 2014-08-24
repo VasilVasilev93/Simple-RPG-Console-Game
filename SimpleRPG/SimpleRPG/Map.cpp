@@ -1,41 +1,18 @@
 #include <iostream>
 #include "Map.h"
+//#include "Armor.h"
 
 using std::cout;
 using std::endl;
 
-/*Map::Map(string filePath)
-{
-	loadMap(filePath);
-}*/
 
 Map::~Map()
 {
 
 }
 
-/*string Map::getLevelAsString(Level newLevel) const
-{
-	string levelAsString;
-	switch(newLevel)
-	{
-	case Level2:
-		levelAsString.assign("Level2.txt");
-		break;
-	case Level3:
-		levelAsString.assign("Level3.txt");
-		break;
-	case Level4:
-		levelAsString.assign("Level4.txt");
-		break;
-	}
-
-	return levelAsString;
-}*/
-
 void Map::clearMap()
 {
-	//Map::~Map();
 	map.clear();
 }
 
@@ -45,16 +22,15 @@ void Map::loadMap(string textfile)
 	inFile >> mapHeight >> mapWidht;
 	
 	clearMap();
-	//vector<string>(map).swap(map);
 
 	string inputLine;
 	while(getline(inFile, inputLine))
 	{
 		map.push_back(inputLine);
 	}
-	
+	inFile.close();
+
 	printMap();
-	game_running = true;
 }
 
 void Map::printMap()
@@ -66,27 +42,22 @@ void Map::printMap()
 	}
 }
 
-/*void Map::nextLevel()
+/*void Map::generateItem()
 {
-	Level l;
-	int count = 0;
-	if(count <= 2)
-	{
-		l = (Level)count;
-		//loadMap(getLevelAsString(l));
-		
-		
-		Map::Map(getLevelAsString(l));
-		count++;
-		this->setHero(hero);
-		this->move();
-	}
-	
+	int bonus = 0;
+
+	this->hero.pickUpItem(new Armor("Somename", bonus));
 }*/
 
 void Map::setHero(const Hero &hero)
 {
 	this->hero = hero;
+}
+
+void Map::createHero(string newName, CharType newType)
+{
+	Hero newHero(newName, newType);
+	setHero(newHero);
 }
 
 bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 || 0 || 1
@@ -130,11 +101,8 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 	{
 		this->hero.setHealth(100);
 		system("cls");
-		cout << "gratZ!" << endl;
-		game_running = false;
-		this->hero.resetPos();
-		//game.loadlevel()..?
-		//nextLevel();
+		
+		level_ended = true;
 	}
 	else if(map[heroX][heroY] == '*')
 	{
@@ -156,39 +124,32 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 
 void Map::move()
 {
-	//game_running = true;
-	while(game_running = true)
+	game_running = true;
+	level_ended = false;
+	this->hero.resetPos();
+	while(!level_ended && game_running)
 	{
-		//if( )break;
 		if (GetAsyncKeyState(VK_UP))
 		{
 			changeHeroPos(-1, 0);
-			
 		}
 		else if(GetAsyncKeyState(VK_DOWN))
 		{
-			changeHeroPos(1, 0);
-			
+			changeHeroPos(1, 0);	
 		}
 		else if (GetAsyncKeyState(VK_RIGHT))
 		{
 			changeHeroPos(0, 1);
 		}
-
 		else if (GetAsyncKeyState(VK_LEFT))
 		{
 			changeHeroPos(0, -1);
-			
 		}
-
 		else if (GetAsyncKeyState(VK_ESCAPE))
 		{
 			cout << "Game Over" << endl;
 			game_running = false;
-			hero.~Hero();
 			break;
 		}
 	}
-		
-
 }

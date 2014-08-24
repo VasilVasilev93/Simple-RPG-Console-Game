@@ -1,11 +1,10 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include "Hero.h"
 #include "Map.h"
 #include "levels.h"
 
-//start game method, clear map method, load map method, map
+
 class Game
 {
 public:
@@ -23,12 +22,10 @@ public:
 private:
 	bool game_running;
 
+	int currentLevel;
+
 	Map map;
 	Level level;
-
-	//vector<string> map;
-
-
 };
 
 #endif

@@ -58,10 +58,10 @@ CharType Hero::getClass() const
 	return heroClass;
 }
 
-vector<ItemType> Hero::getStash() 
+/*vector<Item> Hero::getStash() 
 {
 	return stash;
-}
+}*/
 
 int Hero::getHealth() const
 {
@@ -129,10 +129,10 @@ void Hero::setHealth(int hp)
 
 #pragma region Public Methods
 
-void Hero::pickUpItem(ItemType& item) 
+/*void Hero::pickUpItem(Item& item) 
 {
 	this->stash.push_back(item);
-}
+}*/
 
 void Hero::printInfo() const
 {
@@ -159,7 +159,7 @@ void Hero::removeHealth(int points)
 void Hero::calculateDamage()
 {
 	// damageReduction = (enemyAttack*(armor*10))/100)
-	//need enemy class? 
+	//need enemy class?
 	//removeHealth(enemyAttack - damageReduction)
 }
 
