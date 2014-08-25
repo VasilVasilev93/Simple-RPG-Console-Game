@@ -24,6 +24,7 @@ private:
 
 	int currentLevel;
 
+	Enemy enemy;
 	Map map;
 	Level level;
 };

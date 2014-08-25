@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Hero.h"
+
 using std::cout;
 using std::endl;
 
@@ -68,7 +69,7 @@ int Hero::getHealth() const
 	return health;
 }
 
-double Hero::getAttack() const
+int Hero::getAttack() const
 {
 	return attack;
 }
@@ -155,12 +156,11 @@ void Hero::removeHealth(int points)
 {
 	this->health -= points;
 }
-//todo: enemy class?
+
 void Hero::calculateDamage()
 {
-	// damageReduction = (enemyAttack*(armor*10))/100)
-	//need enemy class?
-	//removeHealth(enemyAttack - damageReduction)
+	damageReduction = (int)(this->enemy.getAttack()*(armor*10))/100;
+	removeHealth(this->enemy.getAttack() - damageReduction);
 }
 
 #pragma endregion Public Methods for the Hero Class

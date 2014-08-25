@@ -117,9 +117,11 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 	{
 		return false;
 	}
-
-	this->hero.setPos(heroX, heroY);
-	return true;
+	if(this->hero.getHealth() > 0)
+	{
+		this->hero.setPos(heroX, heroY);
+		return true;
+	}
 }
 
 void Map::move()
