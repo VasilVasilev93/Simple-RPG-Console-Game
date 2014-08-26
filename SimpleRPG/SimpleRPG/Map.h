@@ -5,6 +5,7 @@
 #include "levels.h"
 #include <fstream>
 
+#include "Enemy.h"
 #include "Hero.h"
 
 using std::string;
@@ -16,7 +17,6 @@ private:
 	bool level_ended;
 	int mapHeight;
 	int mapWidht;
-	Hero hero;
 
 	Level level;
 
@@ -24,9 +24,16 @@ private:
 	vector<string> map;
 
 	void generateItem();
+	string randomItemName(int, int);
+	string getItemAsString(int) const;
+
+	void calculateDmg();
 
 public:
 	bool game_running;
+
+	Hero hero;
+	Enemy enemy;
 
 	~Map();
 
@@ -35,6 +42,7 @@ public:
 
 	void setHero(const Hero&);
 	void createHero(string, CharType);
+	void createEnemy(int, int, int);
 	bool changeHeroPos(int, int);
 
 	void move();

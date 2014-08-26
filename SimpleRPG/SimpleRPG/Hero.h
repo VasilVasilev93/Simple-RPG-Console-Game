@@ -5,7 +5,7 @@
 
 #include "CharType.h"
 #include "Enemy.h"
-//#include "Item.h"
+#include "Item.h"
 using std::string;
 using std::vector;
 
@@ -15,16 +15,17 @@ private:
 	int posX;
 	int posY;
 
-	Enemy enemy;
 	string heroName;
 	CharType heroClass;
-	//vector<Item> stash;
-
+	vector<Item> stash;
+	int equippedItem;
 	int level;
 	int attack; 
 	int armor;
 	int health;
-
+	int exp;
+	int expToLvlUp;
+	int maxHealth;
 	int damageReduction;
 
 public:
@@ -38,12 +39,13 @@ public:
 	void resetPos();
 	string getName() const;
 	CharType getClass() const;
-	//vector<Item> getStash();
+	vector<Item> getStash();
 
 	int getHealth() const;
 	int getAttack() const;
 	int getLevel() const;
 	int getArmor() const;
+	int getMaxHealth() const;
 
 	string getClassAsString() const;
 
@@ -56,11 +58,14 @@ public:
 	void setHealth(int);
 
 	// Public Method
-	//void pickUpItem(Item&);
-	void printInfo() const;
+	void printStash();
+	void pickUpItem(Item*);
+	void printInfo();
+	void equipItem(int);
 
 	void addHealth(int);
 	void removeHealth(int);
+	void addExp(int);
 
 	void calculateDamage();
 };

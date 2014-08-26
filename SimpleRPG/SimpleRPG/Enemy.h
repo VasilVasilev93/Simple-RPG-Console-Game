@@ -1,21 +1,16 @@
 #ifndef ENEMY_H_
 #define ENEMY_H_
 
-#include "Hero.h"
-
 class Enemy
 {
 private:
-	Hero hero;
-
 	int attack; 
 	int armor;
 	int health;
 
-	int damageReduction;
-
 public:
 	Enemy();
+	Enemy(int, int, int);
 	~Enemy();
 	
 	//Getters
@@ -27,13 +22,6 @@ public:
 	void setAttack(int);
 	void setArmor(int);
 	void setHealth(int);
-
-	//Public Methods
-	void setHero(const Hero&);
-
-	void removeHealth(int);
-	
-	void calculateDamage();
 };
 
 #endif

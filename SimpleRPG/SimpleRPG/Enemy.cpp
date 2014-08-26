@@ -1,8 +1,17 @@
 #include "Enemy.h"
 
+#include <iostream>
+
 Enemy::Enemy()
 {
 
+}
+
+Enemy::Enemy(int newAttack, int newArmor, int newHealth)
+{
+	attack = newAttack;
+	armor = newArmor;
+	health = newHealth;
 }
 
 Enemy::~Enemy()
@@ -47,25 +56,3 @@ void Enemy::setHealth(int newHealth)
 }
 
 #pragma endregion Setters for the Enemy Class
-
-#pragma region Public Methods
-
-void Enemy::setHero(const Hero &hero)
-{
-	this->hero = hero;
-}
-
-void Enemy::removeHealth(int points)
-{
-	this->health -= points;
-}
-
-void Enemy::calculateDamage()
-{
-	damageReduction = (int)(this->hero.getAttack()*(armor*10))/100;
-	removeHealth(this->hero.getAttack() - damageReduction);
-}
-
-#pragma endregion Public Methods for the Enemy Class
-
-

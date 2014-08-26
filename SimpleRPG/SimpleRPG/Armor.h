@@ -7,26 +7,24 @@
 class Armor: public Item
 {
 private:
-	int bonusArmor;
 
 public:
 	Armor();
-	Armor(std::string newName, int newBonus)
+	Armor(std::string name, int bonus) : Item(name, bonus)
 	{
-		name = newName;
-		bonusArmor = newBonus;
+		this->name = name;
+		this->bonus = bonus;
 	}
-	~Armor();
 
 	virtual std::string getName()
 	{
 		std::string result = "Armor: " + name;
 		return result;
 	}
-	int getBonusArmor()
-	{
-		return bonusArmor;
-	}
 
+	virtual std::string getType()
+	{
+		return "Armor";
+	}
 };
 #endif

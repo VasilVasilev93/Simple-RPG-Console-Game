@@ -16,7 +16,7 @@ void Game::startGame()
 	game_running = true;
 	currentLevel = 0;
 	map.createHero("B.Borisov", Warrior);
-	//set enemy's shit
+	map.createEnemy(12,1,18);
 	
 	while(game_running && map.game_running)
 	{

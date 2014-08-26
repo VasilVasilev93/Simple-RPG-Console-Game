@@ -11,22 +11,21 @@ private:
 
 public:
 	Weapon();
-	Weapon(std::string newName, int newBonus)
+	Weapon(std::string name, int bonus) : Item(name, bonus)
 	{
-		name = newName;
-		bonusAttack = newBonus;
+		this->name = name;
+		this->bonus = bonus;
 	}
-	~Weapon();
 
 	virtual std::string getName()
 	{
 		std::string result = "Attack: " + name;
 		return result;
 	}
-	int getBonusAttack()
-	{
-		return bonusAttack;
-	}
 
+	virtual std::string getType()
+	{
+		return "Weapon";
+	}
 };
 #endif

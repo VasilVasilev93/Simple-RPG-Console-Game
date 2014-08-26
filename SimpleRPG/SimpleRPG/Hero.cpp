@@ -13,6 +13,9 @@ Hero::Hero(string newName, CharType newType)
 {
 	heroName = newName;
 	heroClass = newType;
+	equippedItem = -1;
+	exp = 0;
+	expToLvlUp = 30;
 	level = 1;
 	posX = 2;
 	posY = 1;
@@ -34,6 +37,7 @@ Hero::Hero(string newName, CharType newType)
 		armor = 2;
 		break;
 	}
+	maxHealth = health;
 }
 
 Hero::~Hero()
@@ -59,10 +63,10 @@ CharType Hero::getClass() const
 	return heroClass;
 }
 
-/*vector<Item> Hero::getStash() 
+vector<Item> Hero::getStash() 
 {
 	return stash;
-}*/
+}
 
 int Hero::getHealth() const
 {
@@ -82,6 +86,11 @@ int Hero::getLevel() const
 int Hero::getArmor() const
 {
 	return armor;
+}
+
+int Hero::getMaxHealth() const
+{
+	return maxHealth;
 }
 
 string Hero::getClassAsString() const
@@ -124,27 +133,24 @@ void Hero::setHealth(int hp)
 	this->health = hp;
 }
 
-// TODO: Add setters for level, attack and armor
-
 #pragma endregion Setters for the Hero Class
 
 #pragma region Public Methods
 
-/*void Hero::pickUpItem(Item& item) 
+void Hero::pickUpItem(Item* item) 
 {
-	this->stash.push_back(item);
-}*/
+	this->stash.push_back(*item);
+}
 
-void Hero::printInfo() const
+void Hero::printInfo()
 {
 	cout << endl;
-	cout << "Hero Name: " << heroName << endl;
-	cout << "Hero HP: " << health << endl;
-	cout << "Hero Attack Power: " << attack << endl;
-	cout << "Hero Level: " << level << endl;
-	cout << "Hero Type: " << getClassAsString() << endl;
-	cout << "Hero Armor: " <<  armor << endl;
-	cout << "Hero Inventory: " << endl;
+	cout << "Hero Name: " << getName() << endl;
+	cout << "Hero HP: " << getHealth() << endl;
+	cout << "Hero Attack Power: " << getAttack() << endl;
+	cout << "Hero Level: " << getLevel() << endl;
+	cout << "Hero Type: " << getClass() << endl;
+	cout << "Hero Armor: " <<  getArmor() << endl;
 }
 
 void Hero::addHealth(int points)
@@ -154,13 +160,30 @@ void Hero::addHealth(int points)
 
 void Hero::removeHealth(int points)
 {
+	if(points < 0) points = 0;
 	this->health -= points;
 }
 
-void Hero::calculateDamage()
+void Hero::addExp(int points)
 {
-	damageReduction = (int)(this->enemy.getAttack()*(armor*10))/100;
-	removeHealth(this->enemy.getAttack() - damageReduction);
+	if(points < 0) points = 0;
+	this->exp += points;
+	if(exp >= 30)
+	{
+		exp -= 30;
+		level++;
+		attack += 3;
+		maxHealth += 3;
+		armor += 1;
+	}
 }
 
 #pragma endregion Public Methods for the Hero Class
+
+void Hero::printStash()
+{
+	for(vector<Item>::iterator it1 = stash.begin(); it1 != stash.end(); it1++)
+	{
+		cout << it1->getName() << " " << it1->getBonus() << endl;
+	}
+}
