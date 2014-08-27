@@ -21,10 +21,5 @@ public:
 		std::string result = "Armor: " + name;
 		return result;
 	}
-
-	virtual std::string getType()
-	{
-		return "Armor";
-	}
 };
 #endif

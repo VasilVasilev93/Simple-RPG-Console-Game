@@ -8,6 +8,7 @@ class Item
 protected:
 	std::string name;
 	int bonus;
+	int type;
 
 public:
 	Item();
@@ -26,11 +27,6 @@ public:
 	virtual int getBonus()
 	{
 		return bonus;
-	}
-
-	virtual std::string getType()
-	{
-		return "Generic";
 	}
 };
 #endif

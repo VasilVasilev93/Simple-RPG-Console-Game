@@ -20,7 +20,7 @@ private:
 	vector<Item> stash;
 	int equippedItem;
 	int level;
-	int attack; 
+	int attack;
 	int armor;
 	int health;
 	int exp;
@@ -41,6 +41,7 @@ public:
 	CharType getClass() const;
 	vector<Item> getStash();
 
+	int getExp() const;
 	int getHealth() const;
 	int getAttack() const;
 	int getLevel() const;
@@ -53,7 +54,6 @@ public:
 	void setPos(int, int);
 
 	void setLevel(int);
-	//void setAttack(int);
 	void setArmor(int);
 	void setHealth(int);
 

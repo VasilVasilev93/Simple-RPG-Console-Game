@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <fstream>
 
 #include "Map.h"
 #include "Armor.h"
@@ -23,7 +24,6 @@ void Map::clearMap()
 void Map::loadMap(string textfile)
 {
 	inFile.open(textfile);
-	inFile >> mapHeight >> mapWidht;
 	
 	clearMap();
 
@@ -44,7 +44,7 @@ void Map::printMap()
 		cout << *row << endl;
 	}
 	cout << "Hero name: " << this->hero.getName() << endl;
-	cout << "Hero class: " << this->hero.getClass() << endl;
+	cout << "Hero class: " << this->hero.getClassAsString() << endl;
 	cout << "Hero HP: " << this->hero.getHealth() << endl;
 	cout << "Hero LVL: " << this->hero.getLevel() << endl;
 }
@@ -67,7 +67,7 @@ string Map::getItemAsString(int typeNumber) const
 		itemAsString.assign("Dragon Shield");
 		break;
 	case 5:
-		itemAsString.assign("Boobs Of Steal!");
+		itemAsString.assign("Boobs Of Steal");
 		break;
 	case 6:
 		itemAsString.assign("Party Hat");
@@ -96,13 +96,13 @@ void Map::generateItem()
 		itemName.assign(randomItemName(3, 4));
 		bonus = 1;
 		this->hero.pickUpItem(new Armor(itemName, bonus));
-		cout << "You have obtained new Armor: " << itemName << " and you gained " << bonus << " bonus armor!" << endl;
+		cout << "You have obtained new Armor: " << itemName << "! Item gives " << bonus << " bonus armor, when equipped!" << endl;
 		break;
 	case 2:
 		bonus = rand() %3 + 1; 
 		itemName.assign(randomItemName(3, 1));
 		this->hero.pickUpItem(new Weapon(itemName, bonus));
-		cout << "You have obtained new Weapon : " << itemName << " and you gained " << bonus << " bonus attack!" << endl;
+		cout << "You have obtained new Weapon : " << itemName << "! Item gives " << bonus << " bonus attack, when equipped!" << endl;
 		break;
 	}
 	
@@ -119,6 +119,29 @@ void Map::createHero(string newName, CharType newType)
 	setHero(newHero);
 }
 
+void Map::saveHeroStatus(string fileName, string name, int level, int hp, int attack, int armor, int exp, string type, std::vector<Item> item)
+{
+	std::ofstream file;
+
+	file.open(fileName);
+	{
+		file << "Hero Name: " << name << endl;
+		file << "Hero Level: " << level << endl;
+		file << "Hero HP: " << hp << endl;
+		file << "Hero Attack: " << attack << endl;
+		file << "Hero Armor: " << armor << endl;
+		file << "Hero Experience: " << exp << endl;
+		file << "Hero Class: " << type << endl;
+		file << "Hero Items(name,bonus): " << endl;
+
+		for(vector<Item>::iterator it1 = item.begin(); it1 != item.end(); it1++)
+		{
+			file << it1->getName() << " - " << it1->getBonus() << endl;
+		}
+	}
+	file.close();
+}
+
 void Map::createEnemy(int attack, int armor, int health)
 {
 	Enemy newEnemy(attack, armor, health);
@@ -127,11 +150,6 @@ void Map::createEnemy(int attack, int armor, int health)
 
 void Map::calculateDmg()
 {
-	//damageReduction = (int)(this->hero.getAttack()*(armor*10))/100;
-	//removeHealth(this->hero.getAttack() - damageReduction);
-	//damageReduction = (int)(this->enemy.getAttack()*(armor*10))/100;
-	//removeHealth(this->enemy.getAttack() - damageReduction);
-
 	int dmgRedHero = (int) (this->hero.getArmor() / 10);
 	int dmgRedEnemy = (int) (this->enemy.getArmor() / 10);
 
@@ -180,6 +198,7 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 	{
 		map[heroX - movX][heroY - movY] = ' ';
 		this->calculateDmg();
+		if(this->hero.getHealth() <= 0) return false;
 		map[heroX][heroY] = '@';
 		system ("cls");
 		printMap();
@@ -196,6 +215,16 @@ bool Map::changeHeroPos(int movX, int movY) // movX = -1 || 0 || 1		movY = -1 ||
 		this->hero.addHealth(15);
 		map[heroX - movX][heroY - movY] = ' ';
 		map[heroX][heroY] = '@';
+		system ("cls");
+		printMap();
+		system("pause");
+	}
+	else if(map[heroX][heroY] == '')
+	{
+		map[heroX - movX][heroY - movY] = ' ';
+		map[9][17] = '@';
+		heroX = 9;
+		heroY = 17;
 		system ("cls");
 		printMap();
 		system("pause");
@@ -220,8 +249,9 @@ void Map::move()
 	{
 		if(this->hero.getHealth() <= 0)
 		{
+			this->hero.setHealth(0);
 			game_running = false;
-			cout << "Hero dead, game over";
+			cout << "Hero dead, game over" << endl;
 			break;
 		}
 		if (GetAsyncKeyState(VK_UP))
@@ -240,10 +270,20 @@ void Map::move()
 		{
 			changeHeroPos(0, -1);
 		}
-		else if(GetAsyncKeyState(VK_END))
+		else if(GetAsyncKeyState(VK_HOME))
 		{
 			this->hero.printStash();
 			system("pause");
+		}
+		else if(GetAsyncKeyState(VK_END))
+		{
+			saveHeroStatus("HeroStatus.txt", this->hero.getName(), this->hero.getLevel(), this->hero.getHealth(), this->hero.getAttack(), this->hero.getArmor()
+				, this->hero.getExp(), this->hero.getClassAsString(), this->hero.getStash());
+		}
+		else if(GetAsyncKeyState(VK_F1))
+		{
+			cout << "End level secret coordinats: 9;11 " << endl;
+			system ("pause");
 		}
 		else if (GetAsyncKeyState(VK_ESCAPE))
 		{

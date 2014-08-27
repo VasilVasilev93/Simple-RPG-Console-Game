@@ -85,7 +85,6 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="Item.h" />
-    <ClInclude Include="ItemType.h" />
     <ClInclude Include="levels.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Weapon.h" />
@@ -96,6 +95,9 @@
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Level4.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -17,7 +17,7 @@ Hero::Hero(string newName, CharType newType)
 	exp = 0;
 	expToLvlUp = 30;
 	level = 1;
-	posX = 2;
+	posX = 1;
 	posY = 1;
 	switch(heroClass)
 	{
@@ -66,6 +66,11 @@ CharType Hero::getClass() const
 vector<Item> Hero::getStash() 
 {
 	return stash;
+}
+
+int Hero::getExp() const
+{
+	return exp;
 }
 
 int Hero::getHealth() const
@@ -124,7 +129,7 @@ void Hero::setPos(int posX, int posY)
 
 void Hero::resetPos()
 {
-	this->posX = 2;
+	this->posX = 1;
 	this->posY = 1;
 }
 
@@ -140,6 +145,14 @@ void Hero::setHealth(int hp)
 void Hero::pickUpItem(Item* item) 
 {
 	this->stash.push_back(*item);
+}
+
+void Hero::printStash()
+{
+	for(vector<Item>::iterator it1 = stash.begin(); it1 != stash.end(); it1++)
+	{
+		cout << "Item Name: " << it1->getName() << "; Bonus: " << it1->getBonus() << endl;
+	}
 }
 
 void Hero::printInfo()
@@ -161,6 +174,11 @@ void Hero::addHealth(int points)
 void Hero::removeHealth(int points)
 {
 	if(points < 0) points = 0;
+	if(this->health < points)
+	{
+		this->setHealth(0);
+		return;
+	}
 	this->health -= points;
 }
 
@@ -180,10 +198,3 @@ void Hero::addExp(int points)
 
 #pragma endregion Public Methods for the Hero Class
 
-void Hero::printStash()
-{
-	for(vector<Item>::iterator it1 = stash.begin(); it1 != stash.end(); it1++)
-	{
-		cout << it1->getName() << " " << it1->getBonus() << endl;
-	}
-}
