@@ -63,7 +63,7 @@ CharType Hero::getClass() const
 	return heroClass;
 }
 
-vector<Item> Hero::getStash() 
+vector<Item*> Hero::getStash() 
 {
 	return stash;
 }
@@ -144,14 +144,15 @@ void Hero::setHealth(int hp)
 
 void Hero::pickUpItem(Item* item) 
 {
-	this->stash.push_back(*item);
+	this->stash.push_back(item);
 }
 
 void Hero::printStash()
 {
-	for(vector<Item>::iterator it1 = stash.begin(); it1 != stash.end(); it1++)
+	for(vector<Item*>::iterator it1 = stash.begin(); it1 != stash.end(); it1++)
 	{
-		cout << "Item Name: " << it1->getName() << "; Bonus: " << it1->getBonus() << endl;
+		cout << (*it1)->getName() << endl;
+		cout << (*it1)->getBonus() << endl;
 	}
 }
 

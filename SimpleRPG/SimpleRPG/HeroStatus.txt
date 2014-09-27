@@ -1,8 +1,9 @@
 Hero Name: B.Borisov
-Hero Level: 3
-Hero HP: 23
-Hero Attack: 32
-Hero Armor: 7
-Hero Experience: 0
+Hero Level: 1
+Hero HP: 8
+Hero Attack: 26
+Hero Armor: 5
+Hero Experience: 24
 Hero Class: Warrior
 Hero Items(name,bonus): 
+Eyepoker - 3

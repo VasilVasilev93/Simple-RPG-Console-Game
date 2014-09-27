@@ -29,7 +29,7 @@ private:
 
 	void calculateDmg();
 
-	void saveHeroStatus(string, string, int, int, int, int, int, string, std::vector<Item>);
+	void saveHeroStatus(string, string, int, int, int, int, int, string, std::vector<Item*>);
 
 public:
 	bool game_running;

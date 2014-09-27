@@ -17,7 +17,7 @@ private:
 
 	string heroName;
 	CharType heroClass;
-	vector<Item> stash;
+	vector<Item*> stash;
 	int equippedItem;
 	int level;
 	int attack;
@@ -39,7 +39,7 @@ public:
 	void resetPos();
 	string getName() const;
 	CharType getClass() const;
-	vector<Item> getStash();
+	vector<Item*> getStash();
 
 	int getExp() const;
 	int getHealth() const;

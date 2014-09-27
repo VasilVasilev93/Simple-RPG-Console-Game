@@ -1,11 +1,11 @@
-###################### Only a skillful player can get through this level!
+###################### Only an open-minded player can get through this level!
 #@      Level         # @ - MAIN HERO
 #      ###3###       ## * - REGEN
 #####                 # & - ENEMY
 #*    &############   # $ - ITEM
-####  ###### ### ##& # % - END OF LEVEL
+# ###  ###### ### ##& # % - END OF LEVEL
 # * #             #   #
 #  #             #  * #
-#YOU_SHALL_NOT_PASS!!!#
+# YOU_SHALL_NOT_PASS!##
 #$           &  #   %##
 #######################

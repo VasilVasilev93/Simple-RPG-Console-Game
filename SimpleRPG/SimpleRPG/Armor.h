@@ -18,8 +18,14 @@ public:
 
 	virtual std::string getName()
 	{
-		std::string result = "Armor: " + name;
-		return result;
+		//std::cout << "Name: ";
+		return name;
+	}
+
+	virtual int getBonus()
+	{
+		//std::cout << "Armor bonus: ";
+		return bonus;
 	}
 };
 #endif

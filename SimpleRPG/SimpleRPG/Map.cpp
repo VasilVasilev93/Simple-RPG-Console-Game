@@ -119,7 +119,7 @@ void Map::createHero(string newName, CharType newType)
 	setHero(newHero);
 }
 
-void Map::saveHeroStatus(string fileName, string name, int level, int hp, int attack, int armor, int exp, string type, std::vector<Item> item)
+void Map::saveHeroStatus(string fileName, string name, int level, int hp, int attack, int armor, int exp, string type, std::vector<Item*> item)
 {
 	std::ofstream file;
 
@@ -134,9 +134,9 @@ void Map::saveHeroStatus(string fileName, string name, int level, int hp, int at
 		file << "Hero Class: " << type << endl;
 		file << "Hero Items(name,bonus): " << endl;
 
-		for(vector<Item>::iterator it1 = item.begin(); it1 != item.end(); it1++)
+		for(vector<Item*>::iterator it1 = item.begin(); it1 != item.end(); it1++)
 		{
-			file << it1->getName() << " - " << it1->getBonus() << endl;
+			file << (*it1)->getName() << " - " << (*it1)->getBonus() << endl;
 		}
 	}
 	file.close();
@@ -279,11 +279,6 @@ void Map::move()
 		{
 			saveHeroStatus("HeroStatus.txt", this->hero.getName(), this->hero.getLevel(), this->hero.getHealth(), this->hero.getAttack(), this->hero.getArmor()
 				, this->hero.getExp(), this->hero.getClassAsString(), this->hero.getStash());
-		}
-		else if(GetAsyncKeyState(VK_F1))
-		{
-			cout << "End level secret coordinats: 9;11 " << endl;
-			system ("pause");
 		}
 		else if (GetAsyncKeyState(VK_ESCAPE))
 		{
